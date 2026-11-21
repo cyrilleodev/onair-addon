@@ -187,8 +187,8 @@ const catalogRoutes: FastifyPluginCallbackJsonSchemaToTs<{
         "schedule",
         (schedules) =>
           schedules
-            .where((schedule) => schedule.endTime.gt(guideWindow.start))
-            .where((schedule) => schedule.startTime.lt(guideWindow.end))
+            .where((schedule) => schedule.endTime.gt(guideWindow.start.toDate()))
+            .where((schedule) => schedule.startTime.lt(guideWindow.end.toDate()))
             .orderBy((schedule) => schedule.startTime.asc()),
       );
       if (catalog == "SPORTS") {
@@ -211,11 +211,6 @@ const catalogRoutes: FastifyPluginCallbackJsonSchemaToTs<{
       // An empty country list means every country.
       if (config.countries.length > 0) {
         query = query.where((channel) => channel.country.in(config.countries));
-      }
-
-      if (extraArgs.search) {
-        const search = `%${extraArgs.search}%`;
-        query = query.where((channel) => channel.name.ilike(search));
       }
       if (extraArgs.skip) {
         const skip = Number(extraArgs.skip);

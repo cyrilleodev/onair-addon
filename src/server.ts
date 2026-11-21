@@ -64,7 +64,7 @@ const shutdown = closeWithGrace(
 
 fastify.addHook("onClose", () => {
   shutdown.uninstall();
-});
+});  
 
 async function start(): Promise<void> {
   try {
