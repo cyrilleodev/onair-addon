@@ -6,6 +6,7 @@ import {
   metaWindow,
   videoForSchedule,
 } from "@/utils/epg";
+import { stripAddonIdPrefix } from "@/utils/helpers";
 
 const dateTimeFormat: string = "date-time";
 
@@ -128,7 +129,7 @@ const metaRoutes: FastifyPluginCallbackJsonSchemaToTs<{
         }
 
         const channel = await fastify.db.orm.public.Channel.where({
-          id: req.params.metaId,
+          id: stripAddonIdPrefix(req.params.metaId),
         }).first();
         if (!channel) {
           return reply
