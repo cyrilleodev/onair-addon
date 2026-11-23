@@ -1,8 +1,12 @@
 import type { Manifest, ManifestCatalog } from "stremio-addon-sdk";
 import { type models } from "@/prisma/contract";
 import appConfig from "@/config";
-export type CatalogType = typeof models.public.Channel.category;
+type _CatalogType = typeof models.public.Channel.category;
+
+export type CatalogType = _CatalogType | "ALL";
+
 export const catalogTypes: CatalogType[] = [
+  "ALL",
   "ANIME",
   "BASEBALL",
   "BASKETBALL",
