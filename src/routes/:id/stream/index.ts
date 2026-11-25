@@ -48,10 +48,10 @@ const streamRoutes: FastifyPluginCallbackJsonSchemaToTs<{
                   },
                   url: {
                     type: "string",
-                  },                  
+                  },
                   description: {
                     type: "string",
-                  }
+                  },
                 },
               },
             },
@@ -86,7 +86,9 @@ const streamRoutes: FastifyPluginCallbackJsonSchemaToTs<{
         const streams = await fastify.db.orm.public.Stream.where({
           channelId: id,
         })
-          .orderBy((a) => a.failureCount.asc()).orderBy((a)=>a.resolution.asc())
+          .select("id", "name", "failureCount", "url", "resolution")
+          .orderBy((a) => a.failureCount.asc())
+          .orderBy((a) => a.resolution.asc())
           .all();
         return reply.send({
           streams: streams.map((stream) => ({

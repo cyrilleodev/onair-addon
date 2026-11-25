@@ -9,7 +9,7 @@ dayjs.extend(timezone);
 dayjs.extend(utc);
 
 export type ChannelRecord = Omit<Models.public_Channel, "schedule" | "streams">;
-export type ScheduleRecord = Omit<Models.public_Schedule, "channel">;
+export type ScheduleRecord = Omit<Models.public_Schedule, "channel" | "createdat" | "updatedat">;
 
 export interface GuideWindow {
   start: dayjs.Dayjs;

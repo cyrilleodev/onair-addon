@@ -141,6 +141,16 @@ const metaRoutes: FastifyPluginCallbackJsonSchemaToTs<{
         const schedules = await fastify.db.orm.public.Schedule.where({
           channelId: channel.id,
         })
+          .select(
+            "id",
+            "name",
+            "date",
+            "description",
+            "startTime",
+            "endTime",
+            "poster",
+            "channelId",
+          )
           .where((schedule) => schedule.endTime.gt(window.start.toDate()))
           .where((schedule) => schedule.startTime.lt(window.end.toDate()))
           .orderBy((schedule) => schedule.startTime.asc())
